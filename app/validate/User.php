@@ -15,11 +15,13 @@ class User extends Validate
      */
     protected $rule = [
         'username|用户名'      =>        'require|min:2|max:10|chsDash|unique:user',
-        '__token__'           =>        'token',
+        '__token__'           =>        'require|token',
         'password'            =>        'require|min:6',
         'passwordnot'         =>        'require|confirm:password',
         'email'               =>        'require|email|unique:user',
         'agree'               =>        'require|accepted',
+
+        'newpasswordnot'      =>        'min:6|requireWith:newpassword|confirm:newpassword'
     ];
 
     /**
@@ -42,6 +44,18 @@ class User extends Validate
         'email.email'           =>      '电子邮件格式不正确~',
         'email.unique'          =>      '电子邮件已存在~',
         'agree.require'         =>      '必须确认协议~',
-        'agree.accepted'        =>      '必须认同协议~'
+        'agree.accepted'        =>      '必须认同协议~',
+        '__token__.require'     =>      '令牌不得为空~',
+
+        'newpasswordnot.min'            =>      '新密码不得小于 6 位~',
+        'newpasswordnot.requireWith'    =>      '新密码不得为空~',
+        'newpasswordnot.confirm'        =>      '新密码确认不一致~',
+    ];
+
+
+    /**场景认证*/
+    protected $scene = [
+        'insert'     =>     ['username','email','password','passwordnot','agree','__token__'],
+        'edit'       =>     ['__token__','newpasswordnot']
     ];
 }

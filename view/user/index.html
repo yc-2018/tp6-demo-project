@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>用户管理</title>
     <!-- 引入 Bootstrap CSS -->
     {css href="__CSS__/bootstrap.min.css"}
     {css href="__CSS__/style.css"}
@@ -69,7 +69,11 @@ shrink-to-fit=no">
                         <th class="text-center">性别</th>
                         <th>邮箱</th>
                         <th class="text-center">状态</th>
-                        <th class="text-center">创建时间</th>
+                        <th class="text-center {$orderTime=='desc'?'':'dropup'}">
+                            <a href="{:url('/user')}?&create_time={$orderTime}" class="text-decoration-none text-secondary dropdown-toggle" >
+                                创建时间
+                            </a>
+                        </th>
                         <th class="text-center">操作</th>
                     </tr>
                 </thead>

@@ -13,14 +13,17 @@ class User
     public function index()
     {
         return view('index',[
-            'list' => UserModel::withSearch(['gender','username','email'],[
+            'list' => UserModel::withSearch(['gender','username','email','create_time'],[
                 'gender'        =>      request()->param('gender'),
                 'username'      =>      request()->param('username'),
                 'email'         =>      request()->param('email'),
+                'create_time'   =>      request()->param('create_time'),
             ])->paginate([
-                'list_rows'  =>  5,                  //分页数
-                'query'     =>  request()->param()   //保存传递的参数
+                'list_rows'  =>     5,                  //分页数
+                'query'      =>     request()->param()   //保存传递的参数
             ]),
+            'orderTime'      =>     request()->param('create_time')=='desc'?'asc':'desc',
+
         ]);
     }
 
@@ -98,12 +101,37 @@ class User
      *
      * @param  \think\Request  $request
      * @param  int  $id
-     * @return string
+     * @return string|\think\response\View
      */
     public function update(Request $request, $id)
     {
-        //TODO: 还没有在view/user/index.html写好
-        return '修改' . $id;
+
+        $data = $request->param();
+        try {
+            validate(UserValidate::class)
+                            ->scene('edit')
+                            ->batch(true)
+                            ->check($data);
+        } catch (ValidateException $exception) {
+            return view('/public/toast',[
+                'infos'         =>       $exception->getError(),
+                'url_text'      =>      '返回上一页',
+                'url_path'      =>      url('/user/'.$id.'/edit')
+            ]);
+        }
+
+
+        if (!empty($data['newpasswordnot'])) {
+            $data['password'] = sha1($data['newpasswordnot']);
+        }
+
+//        dd($data);
+
+     return UserModel::update($data) ? view('/public/toast',[
+         'infos'         =>       ['恭喜,修改成功'],
+         'url_text'      =>      '回到首页',
+         'url_path'      =>      url('/')
+     ]):'修改失败!';
     }
 
     /**

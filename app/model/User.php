@@ -25,6 +25,15 @@ class User extends Model
         return $value ? $query->where('email','like' , '%'.$value.'%') : '';
     }
 
+
+    //create_time搜索器
+    public function searchCreateTimeAttr($query, $value)
+    {
+        return $value ? $query->order('create_time', $value):'';
+    }
+
+
+
     //status获取器
     public function getStatusAttr($value)
     {
@@ -37,5 +46,7 @@ class User extends Model
     {
         return $data['status'] ? 'success' : 'warning';
     }
+
+
 
 }
