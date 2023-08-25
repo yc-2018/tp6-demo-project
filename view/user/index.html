@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <!-- 引入 Bootstrap CSS -->
+    {css href="__CSS__/bootstrap.min.css"}
+    {css href="__CSS__/style.css"}
+    <!-- 移动设备优先 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1,
+shrink-to-fit=no">
+</head>
+<body>
+
+<!--核心部分-->
+<div class="container pt-5 mt-5">
+    <div class="row align-items-center">
+        <div class="col-3 siadebar">
+            <button class="btn btn-secondary">用户管理</button>
+            <button class="btn btn-secondary">喜好管理</button>
+            <button class="btn btn-secondary">书籍管理</button>
+            <button class="btn btn-secondary">角色管理</button>
+            <button class="btn btn-secondary">权限管理</button>
+        </div>
+        <div class="col-9 main">
+
+            <!--搜索表单-->
+            <form action="{:url('/user')}" class="pb-2">
+                <div class="form-row">
+                    <div class="col-form-label">
+                        <label for="username">用户名</label>
+                    </div>
+                    <div class="col-2">
+                        <input placeholder="查询的用户名" type="text" id="username" name="username" class="form-control">
+                    </div>
+
+                    <div class="col-form-label">
+                        <label for="email">邮箱</label>
+                    </div>
+                    <div class="col-2">
+                        <input placeholder="邮箱查询" type="text" id="email" name="email" class="form-control">
+                    </div>
+
+                    <div class="col-form-label">
+                        <label for="gender">性别</label>
+                    </div>
+                    <div class="col-auto">
+                        <select name="gender" id="gender" class="custom-select">
+                            <option selected value="">选择性别</option>
+                            <option value="男">男</option>
+                            <option value="女">女</option>
+                        </select>
+                    </div>
+                    <div class="col-auto">
+                        <button class="btn btn-primary">搜索</button>
+                        <a href="{:url('/user/create')}" class="btn btn-success">添加用户</a>
+
+                    </div>
+                </div>
+
+            </form>
+
+            <!--数据列表-->
+            <table class="table table-bordered">
+                <thead class="bg-light">
+                    <tr>
+                        <th class="text-center">ID</th>
+                        <th>用户名</th>
+                        <th class="text-center">性别</th>
+                        <th>邮箱</th>
+                        <th class="text-center">状态</th>
+                        <th class="text-center">创建时间</th>
+                        <th class="text-center">操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {volist name="list" id="obj"}
+                    <tr>
+                        <td class="text-center">{$obj.id}</td>
+                        <td>{$obj.username}</td>
+                        <td class="text-center">{$obj.gender}</td>
+                        <td>{$obj.email}</td>
+                        <td class="text-center">
+                            <span class="badge btn-{$obj.badge}">
+                                {$obj.status}
+                            </span>
+                        </td>
+                        <td class="text-center">{$obj.create_time}</td>
+                        <td>
+                            <form action="{:url('/user/'.$obj.id)}" method="post">
+                                <input type="hidden" name="_method" value="delete">     <!--伪装为删除请求-->
+                                <button class="btn badge-danger btn-sm btn-delete">删除</button>
+                                <a href="{:url('/user/'.$obj.id.'/edit')}" class="btn badge-warning btn-sm">修改</a>
+                            </form>
+                        </td>
+
+                    </tr>
+                    {/volist}
+                </tbody>
+            </table>
+
+            {$list|raw}
+
+        </div>
+    </div>
+</div>
+
+
+
+
+
+<!-- 引入 JS 文件 -->
+{js href="__JS__/jquery-3.3.1.min.js"}
+{js href="__JS__/bootstrap.bundle.min.js"}
+<script type="text/javascript">
+    $('.btn-delete').click(()=>{
+        let flag = confirm('真的要删除当前数据吗');
+        return flag ? true : false;
+    })
+</script>
+</body>
+</html>
