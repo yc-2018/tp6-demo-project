@@ -70,7 +70,7 @@ shrink-to-fit=no">
                         <th>邮箱</th>
                         <th class="text-center">状态</th>
                         <th class="text-center {$orderTime=='desc'?'':'dropup'}">
-                            <a href="{:url('/user')}?&create_time={$orderTime}" class="text-decoration-none text-secondary dropdown-toggle" >
+                            <a href="{:app\\common\\Tool::url('create_time')}create_time={$orderTime}" class="text-decoration-none text-secondary dropdown-toggle" >
                                 创建时间
                             </a>
                         </th>
