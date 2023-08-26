@@ -7,6 +7,13 @@ use app\model\User as UserModel;
 use app\validate\User as UserValidate;
 class User
 {
+
+    /**
+     * 提示模板路径
+     * @var string
+     */
+    private $toast = 'public/toast';
+
     /**
      * 显示资源列表
      */
@@ -52,7 +59,7 @@ class User
         try {
             validate(UserValidate::class)->batch(true)->check($data);
         } catch (ValidateException $exception) {
-            return view('/public/toast',[
+            return view($this->toast,[
                 'infos'         =>       $exception->getError(),
                 'url_text'      =>      '返回上一页',
                 'url_path'      =>      url('/user/create')
@@ -63,7 +70,7 @@ class User
         //写入数据库 后 返回id
         $id = UserModel::create($data)->getData('id');
 
-        return $id ? view('/public/toast',[
+        return $id ? view($this->toast,[
             'infos'         =>       ['恭喜,注册成功'],
             'url_text'      =>      '回到首页',
             'url_path'      =>      url('/')
@@ -113,7 +120,7 @@ class User
                             ->batch(true)
                             ->check($data);
         } catch (ValidateException $exception) {
-            return view('/public/toast',[
+            return view($this->toast,[
                 'infos'         =>       $exception->getError(),
                 'url_text'      =>      '返回上一页',
                 'url_path'      =>      url('/user/'.$id.'/edit')
@@ -127,7 +134,7 @@ class User
 
 //        dd($data);
 
-     return UserModel::update($data) ? view('/public/toast',[
+     return UserModel::update($data) ? view($this->toast,[
          'infos'         =>       ['恭喜,修改成功'],
          'url_text'      =>      '回到首页',
          'url_path'      =>      url('/')
@@ -143,7 +150,7 @@ class User
     public function delete($id)
     {
         //
-        return UserModel::destroy($id)?view('/public/toast',[
+        return UserModel::destroy($id)?view($this->toast,[
             'infos'         =>       ['恭喜,删除成功'],
             'url_text'      =>      '回到首页',
             'url_path'      =>      url('/')

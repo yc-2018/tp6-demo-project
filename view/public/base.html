@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Tp6——{block name="title"}{/block}</title>
+  <!-- 引入 Bootstrap CSS -->
+  {css href="__CSS__/bootstrap.min.css"}
+  {css href="__CSS__/style.css"}
+  <!-- 移动设备优先 -->
+  <meta name="viewport" content="width=device-width, initial-scale=1,
+shrink-to-fit=no">
+</head>
+<body>
+<!--导航-->
+<nav class="navbar badge-light bg-light shadow-sm p-1">
+  <a href=""></a>
+  <div class="nav-item dropdown mr-5">
+    <a href="" class="dropdown-toggle nav-link text-secondary" data-toggle="dropdown">客户名称</a>
+    <div class="dropdown-menu">
+      <a href="" class="dropdown-item">个人中心</a>
+      <a href="" class="dropdown-item">退出管理</a>
+    </div>
+  </div>
+</nav>
+
+<!--核心部分-->
+<div class="container pt-5 mt-5">
+  <div class="row align-items-center">
+    <div class="col-3 siadebar">
+      <button class="btn btn-secondary">用户管理</button>
+      <button class="btn btn-secondary">喜好管理</button>
+      <button class="btn btn-secondary">书籍管理</button>
+      <button class="btn btn-secondary">角色管理</button>
+      <button class="btn btn-secondary">权限管理</button>
+    </div>
+    <div class="col-9 main">
+
+      <!--引入部分-->
+      {block name="main"}{/block}
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+<!-- 引入 JS 文件 -->
+{js href="__JS__/jquery-3.3.1.min.js"}
+{js href="__JS__/bootstrap.bundle.min.js"}
+
+{block name="js"}{/block}
+</body>
+</html>
