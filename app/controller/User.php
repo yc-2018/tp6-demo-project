@@ -70,6 +70,7 @@ class User
 
         $data['password'] = sha1($data['password']);    //加密密码
         //写入数据库 后 返回id
+
         $id = UserModel::create($data)->getData('id');
 
         //关联保存

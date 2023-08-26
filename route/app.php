@@ -18,3 +18,6 @@ Route::get('hello/:name', 'index/hello');
 
 //用户路由模块
 Route::resource('user', 'User');
+
+//权限模块路由模块
+Route::resource('auth', 'Auth');

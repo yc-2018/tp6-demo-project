@@ -27,11 +27,11 @@ shrink-to-fit=no">
 <div class="container pt-5 mt-5">
   <div class="row align-items-center">
     <div class="col-3 siadebar">
-      <button class="btn btn-secondary">用户管理</button>
-      <button class="btn btn-secondary">喜好管理</button>
-      <button class="btn btn-secondary">书籍管理</button>
-      <button class="btn btn-secondary">角色管理</button>
-      <button class="btn btn-secondary">权限管理</button>
+      <button class="btn btn-secondary user">用户管理</button>
+      <button class="btn btn-secondary repeat">喜好管理</button>
+      <button class="btn btn-secondary repeat">书籍管理</button>
+      <button class="btn btn-secondary ">角色管理</button>
+      <button class="btn btn-secondary auth">权限管理</button>
     </div>
     <div class="col-9 main">
 
@@ -51,5 +51,19 @@ shrink-to-fit=no">
 {js href="__JS__/bootstrap.bundle.min.js"}
 
 {block name="js"}{/block}
+<script>
+  $('.repeat').click(()=>{
+    alert('重复,后续自己扩展')
+  })
+
+  $('.user').click(() => {
+    location.href='/user'
+  });
+
+  $('.auth').click(() => {
+    location.href='/auth'
+  });
+
+</script>
 </body>
 </html>
