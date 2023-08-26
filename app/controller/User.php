@@ -5,6 +5,8 @@ use think\exception\ValidateException;
 use think\Request;
 use app\model\User as UserModel;
 use app\validate\User as UserValidate;
+use think\Response;
+
 class User
 {
 
@@ -37,7 +39,7 @@ class User
     /**
      * 显示创建资源表单页.
      *
-     * @return \think\Response
+     * @return Response
      */
     public function create()
     {
@@ -48,8 +50,8 @@ class User
     /**
      * 保存新建的资源
      *
-     * @param  \think\Request  $request
-     * @return string|\think\Response
+     * @param Request $request
+     * @return string|Response
      */
     public function save(Request $request)
     {
@@ -70,6 +72,11 @@ class User
         //写入数据库 后 返回id
         $id = UserModel::create($data)->getData('id');
 
+        //关联保存
+        UserModel::find($id)->hobby()->save([
+            'content' => $data['content']
+        ]);
+
         return $id ? view($this->toast,[
             'infos'         =>       ['恭喜,注册成功'],
             'url_text'      =>      '回到首页',
@@ -82,18 +89,18 @@ class User
      * 显示指定的资源
      *
      * @param  int  $id
-     * @return \think\Response
+     * @return Response
      */
     public function read($id)
     {
-        //
+        //TODO:个人中心里面返回用户信息
     }
 
     /**
      * 显示编辑资源表单页.
      *
      * @param  int  $id
-     * @return \think\Response
+     * @return Response
      */
     public function edit($id)
     {
@@ -106,7 +113,7 @@ class User
     /**
      * 保存更新的资源
      *
-     * @param  \think\Request  $request
+     * @param Request $request
      * @param  int  $id
      * @return string|\think\response\View
      */

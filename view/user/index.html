@@ -60,7 +60,14 @@
     {volist name="list" id="obj"}
     <tr>
         <td class="text-center">{$obj.id}</td>
-        <td>{$obj.username}</td>
+        <td>
+            <span data-toggle="tooltip"
+                  data-placement="right"
+                  title="{$obj.hobby?$obj.hobby.content:''}">   <!--老师的直接$obj.hobby.content就可以，我的就$obj.hobby没有值了空了再.content就报错-->
+
+                  {$obj.username}
+            </span>
+        </td>
         <td class="text-center">{$obj.gender}</td>
         <td>{$obj.email}</td>
         <td class="text-center">
@@ -91,5 +98,7 @@
     $('.btn-delete').click(()=>{
         return confirm('真的要删除当前数据吗');
     })
+
+    $('[data-toggle="tooltip"]').tooltip();
 </script>
 {/block}

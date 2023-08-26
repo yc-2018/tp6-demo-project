@@ -7,6 +7,13 @@ use think\Model;
 
 class User extends Model
 {
+
+    //一对一hobby
+    public function hobby()
+    {
+        return $this->hasOne(Hobby::class, 'user_id', 'id');
+    }
+
     //gender搜索器
     public function searchGenderAttr($query, $value)
     {
