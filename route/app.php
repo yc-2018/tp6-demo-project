@@ -21,3 +21,9 @@ Route::resource('user', 'User');
 
 //权限模块路由模块
 Route::resource('auth', 'Auth');
+
+//登录模块路由
+Route::group(function () {
+    Route::get('login',        'Login/index');
+    Route::post('login_check', 'Login/Check');
+});
