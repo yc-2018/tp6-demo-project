@@ -1,0 +1,64 @@
+{extend name="public/base"}
+
+{block name="title"}新增管理{/block}
+
+{block name="main"}
+<!--添加管理ui-->
+<form action="{:url('/auth')}" method="post">
+    <fieldset class="w-75">
+        <div class="form-group row">
+            <label for="name" class="col-2 col-form-label">管理员</label>
+            <div class="col-8">
+                <input placeholder="请输入管理员" type="text" id="name" name="name" required
+                       class="form-control">
+            </div>
+            <span class="col-2 text-danger col-form-label">*</span>
+        </div>
+
+        <div class="form-group row">
+            <label for="password" class="col-2 col-form-label">密码</label>
+            <div class="col-8">
+                <input placeholder="请输入管理员密码" type="password" id="password" name="password" required
+                       class="form-control">
+            </div>
+            <span class="col-2 text-danger col-form-label">*</span>
+        </div>
+
+
+        <div class="form-group row">
+            <label class="col-2 col-form-label">权限范围</label>
+            <div class="col-8">
+                {volist name="list" id="obj"}
+                <label for="{$obj.id}">
+                    <input type="checkbox" id="{$obj.id}" name="role[]" value="{$obj.id}">
+                    <span class="col-form-label-sm">{$obj.type}</span>
+
+                </label>
+                {/volist}
+            </div>
+            <span class="col-2 text-danger col-form-label">*</span>
+        </div>
+
+
+        <div class="form-group row">
+            <label class="col-2 col-form-label"></label>
+            <div class="col-6">
+                ...
+            </div>
+            <div class="col-2 text-right">
+                <a class="col-form-label-sm" href="{:url('/auth')}">返回列表</a>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label class="col-2 col-form-label"></label>
+            <div class="col-8">
+                <input type="hidden" value="{:token()}" name="__token__"> <!--开启令牌防止伪造（要打开session）-->
+                <button class="btn btn-success w-100">添加管理</button>
+            </div>
+        </div>
+
+    </fieldset>
+</form>
+{/block}
+
