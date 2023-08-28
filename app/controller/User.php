@@ -3,12 +3,14 @@ declare (strict_types = 1);
 namespace app\controller;
 use think\exception\ValidateException;
 use think\Request;
+use think\Response;
 use app\model\User as UserModel;
 use app\validate\User as UserValidate;
-use think\Response;
+use app\middleware\Auth as AuthMiddleware;
 
 class User
 {
+    protected $middleware = [AuthMiddleware::class];
 
     /**
      * 提示模板路径

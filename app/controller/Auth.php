@@ -1,13 +1,15 @@
 <?php
 declare (strict_types = 1);
 namespace app\controller;
-use app\model\Auth as AuthModel;
-use app\model\Role as RoleModel;
 use think\Request;
 use think\Response;
+use app\model\Auth as AuthModel;
+use app\model\Role as RoleModel;
+use app\middleware\Auth as AuthMiddleware;
 
 class Auth
 {
+    protected $middleware = [AuthMiddleware::class];
     /**
      * 提示模板路径
      * @var string
