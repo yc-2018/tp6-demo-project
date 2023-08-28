@@ -16,11 +16,20 @@ Route::get('think', function () {
 
 Route::get('hello/:name', 'index/hello');
 
-//用户路由模块
-Route::resource('user', 'User');
+//后台组
+Route::group(function () {
+    //用户路由模块
+    Route::resource('user', 'User');
+    //权限模块路由模块
+    Route::resource('auth', 'Auth');
 
-//权限模块路由模块
-Route::resource('auth', 'Auth');
+})->middleware(function ($request, Closure $next) {
+    if (!session('?admin')) {
+        return redirect('/login');
+    }
+    return $next($request);
+});
+
 
 //登录模块路由
 Route::group(function () {
