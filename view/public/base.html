@@ -15,10 +15,10 @@ shrink-to-fit=no">
 <nav class="navbar badge-light bg-light shadow-sm p-1">
   <a href=""></a>
   <div class="nav-item dropdown mr-5">
-    <a href="" class="dropdown-toggle nav-link text-secondary" data-toggle="dropdown">客户名称</a>
+    <a href="" class="dropdown-toggle nav-link text-secondary" data-toggle="dropdown">{:session('admin')}</a>
     <div class="dropdown-menu">
       <a href="" class="dropdown-item">个人中心</a>
-      <a href="" class="dropdown-item">退出管理</a>
+      <a href="{:url('/logout')}" class="dropdown-item">退出管理</a>
     </div>
   </div>
 </nav>

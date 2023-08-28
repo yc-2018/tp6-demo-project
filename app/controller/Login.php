@@ -23,6 +23,7 @@ class Login
 
     public function check(Request $request)
     {
+
         //错误集合
         $errors = [];
 
@@ -50,6 +51,7 @@ class Login
             $errors[] = '验证码错误';
         }
 
+
         if (!empty($errors)) {
             return view($this->toast,[
                 'infos'         =>       $errors,
@@ -57,10 +59,16 @@ class Login
                 'url_path'      =>      url('/login')
             ]);
         } else {
-            session('name', $data['name']);
+            session('admin', $data['name']);
+
             return redirect('/');
         }
 
     }
 
+    public function logout()
+    {
+        session('admin', null);
+        return redirect('/login');
+    }
 }

@@ -33,6 +33,11 @@ Route::group(function () {
 
 //登录模块路由
 Route::group(function () {
-    Route::get('login',        'Login/index');
+    Route::get('login',        'Login/index')->middleware(function ($request, Closure $next) {
+        if (session('?admin'))
+            return redirect('/');
+        return $next($request);
+    });
     Route::post('login_check', 'Login/Check');
+    Route::get('logout',        'Login/logout');
 });
